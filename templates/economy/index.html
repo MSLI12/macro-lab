@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Macro Lab</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f6f8;
+            color: #181818;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        h1 {
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e5e5e5;
+        }
+
+        select {
+            font-size: 16px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 16px;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Macro Lab</h1>
+
+        <p class="subtitle">
+            Economic data, models and scenario analysis
+        </p>
+
+        <div class="card">
+
+            <h2>Macro Activity</h2>
+
+            <div class="stats">
+
+                <div>
+                    <div class="stat-label">
+                        Activity Factor
+                    </div>
+
+                    <div class="stat-value">
+                        {{ activity_factor }}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-label">
+                        Position
+                    </div>
+
+                    <div class="stat-value">
+                        {{ activity_position }}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-label">
+                        Momentum
+                    </div>
+
+                    <div class="stat-value">
+                        {{ activity_direction }}
+                    </div>
+                </div>
+
+            </div>
+
+            {{ factor_chart|safe }}
+
+        </div>
+
+        <div class="card">
+
+            <h2>Inflation Pressure</h2>
+
+            <div class="stats">
+
+                <div>
+                    <div class="stat-label">
+                        Inflation Factor
+                    </div>
+
+                    <div class="stat-value">
+                        {{ inflation_factor }}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-label">
+                        Position
+                    </div>
+
+                    <div class="stat-value">
+                        {{ inflation_position }}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-label">
+                        Momentum
+                    </div>
+
+                    <div class="stat-value">
+                        {{ inflation_direction }}
+                    </div>
+                </div>
+
+            </div>
+
+            {{ inflation_chart|safe }}
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Economic Series</h2>
+
+            <form method="get">
+
+                <select name="series" onchange="this.form.submit()">
+
+                    {% for id, name in series.items %}
+
+                    <option value="{{ id }}" {% if id == selected %} selected {% endif %}>
+                        {{ name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </form>
+
+            {{ chart|safe }}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
